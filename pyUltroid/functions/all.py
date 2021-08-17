@@ -105,7 +105,7 @@ CMD_WEB = {
     "siasky": 'curl -X POST "https://siasky.net/skynet/skyfile" -F "file=@{}"',
 }
 
-UPSTREAM_REPO_URL = "https://github.com/TeamUltroid/Ultroid"
+UPSTREAM_REPO_URL = "https://github.com/fnixdev/WaifuBot"
 
 width_ratio = 0.7
 reqs = "resources/extras/local-requirements.txt"
