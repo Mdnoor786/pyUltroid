@@ -1,7 +1,7 @@
 # Ultroid - UserBot
 # Copyright (C) 2021 TeamUltroid
 #
-# This file is a part of < https://github.com/fnixdev/WaifuBot/ >
+# This file is a part of < https://github.com/fnixdev/KannaBot/ >
 # PLease read the GNU Affero General Public License in
 # <https://www.github.com/TeamUltroid/Ultroid/blob/main/LICENSE/>.
 
@@ -105,7 +105,7 @@ CMD_WEB = {
     "siasky": 'curl -X POST "https://siasky.net/skynet/skyfile" -F "file=@{}"',
 }
 
-UPSTREAM_REPO_URL = "https://github.com/fnixdev/WaifuBot"
+UPSTREAM_REPO_URL = "https://github.com/fnixdev/KannaBot"
 
 width_ratio = 0.7
 reqs = "resources/extras/local-requirements.txt"

@@ -1,7 +1,7 @@
 # Ultroid - UserBot
 # Copyright (C) 2021 TeamUltroid
 #
-# This file is a part of < https://github.com/fnixdev/WaifuBot/ >
+# This file is a part of < https://github.com/fnixdev/KannaBot/ >
 # PLease read the GNU Affero General Public License in
 # <https://www.github.com/TeamUltroid/Ultroid/blob/main/LICENSE/>.
 
@@ -368,7 +368,7 @@ async def customize():
 # some stuffs
 async def ready():
     chat_id = int(udB.get("LOG_CHANNEL"))
-    MSG = f"**Ultroid has been deployed!**\n➖➖➖➖➖➖➖➖➖\n**UserMode**: [{ultroid_bot.me.first_name}](tg://user?id={ultroid_bot.me.id})\n**Assistant**: @{asst.me.username}\n➖➖➖➖➖➖➖➖➖\n**Support**: @TeamUltroid\n➖➖➖➖➖➖➖➖➖"
+    MSG = f"**Waifu iniciado com sucesso!**\n➖➖➖➖➖➖➖➖➖\n**Usuario**: [{ultroid_bot.me.first_name}](tg://user?id={ultroid_bot.me.id})\n**Assistante**: @{asst.me.username}\n➖➖➖➖➖➖➖➖➖\n**Suporte**: @TeamUltroid\n➖➖➖➖➖➖➖➖➖"
     BTTS = [Button.inline("Help", "open")]
     updava = await updater()
     try:

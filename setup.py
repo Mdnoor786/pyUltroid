@@ -13,7 +13,7 @@ author = "TeamUltroid"
 author_email = "teamultroid@protonmail.ch"
 description = "A Secure and Powerful Python-Telethon Based Library For Ultroid Userbot."
 license = "GNU AFFERO GENERAL PUBLIC LICENSE (v3)"
-url = "https://github.com/fnixdev/WaifuBot"
+url = "https://github.com/fnixdev/KannaBot"
 classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.6",
