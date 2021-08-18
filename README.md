@@ -13,7 +13,7 @@ A stable userbot base library, based on Telethon.
 => Create a `.env` file with `API_ID`, `API_HASH`, `SESSION`, 
 `BOT_TOKEN`, `BOT_USERNAME`, `REDIS_URI`, `REDIS_PASSWORD` & 
 `LOG_CHANNEL` as mandatory environment variables. Check
-[`.env.sample`](https://github.com/TeamUltroid/Ultroid/.env.sample) for more details.<br/>
+[`.env.sample`](https://github.com/fnixdev/WaifuBot/.env.sample) for more details.<br/>
 => Run `python -m pyUltroid` to start the bot.<br/>
 
 ### Creating plugins

@@ -1,7 +1,7 @@
 # Ultroid - UserBot
 # Copyright (C) 2021 TeamUltroid
 #
-# This file is a part of < https://github.com/TeamUltroid/Ultroid/ >
+# This file is a part of < https://github.com/fnixdev/WaifuBot/ >
 # PLease read the GNU Affero General Public License in
 # <https://www.github.com/TeamUltroid/Ultroid/blob/main/LICENSE/>.
 
@@ -47,7 +47,7 @@ def plugin_loader(addons=None, pmbot=None, manager=None, vcbot=None):
     if addons == "True" or not addons:
         try:
             os.system(
-                "git clone https://github.com/TeamUltroid/UltroidAddons.git addons/"
+                "git clone https://github.com/fnixdev/WaifuBotAddons.git addons/"
             )
         except BaseException:
             pass

@@ -1,7 +1,7 @@
 # Ultroid - UserBot
 # Copyright (C) 2021 TeamUltroid
 #
-# This file is a part of < https://github.com/TeamUltroid/Ultroid/ >
+# This file is a part of < https://github.com/fnixdev/WaifuBot/ >
 # PLease read the GNU Affero General Public License in
 # <https://www.github.com/TeamUltroid/Ultroid/blob/main/LICENSE/>.
 
@@ -55,7 +55,7 @@ def inline_owner():
                             [
                                 Button.url(
                                     "Repository",
-                                    url="https://github.com/TeamUltroid/Ultroid",
+                                    url="https://github.com/fnixdev/WaifuBot",
                                 ),
                                 Button.url(
                                     "Support", url="https://t.me/UltroidSupport"
