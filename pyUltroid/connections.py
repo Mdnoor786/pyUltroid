@@ -50,7 +50,7 @@ LOGS.info(
 )
 LOGS.info(f"py-Ultroid Version - {ver}")
 LOGS.info(f"Telethon Version - {vers}")
-LOGS.info(f"Ultroid Version - {ultroid_version}")
+LOGS.info(f"KannaBot Version - {ultroid_version}")
 
 
 def connect_redis():
