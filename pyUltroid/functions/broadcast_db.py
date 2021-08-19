@@ -61,7 +61,7 @@ def add_channel(id):  # Take int or str with numbers only , Returns Boolean
         udB.set("BROADCAST", list_to_str(channels))
         return True
     except Exception as e:
-        print(f"Ultroid LOG : // functions/broadcast_db/add_channel : {e}")
+        print(f"KannaBot LOG : // functions/broadcast_db/add_channel : {e}")
         return False
 
 
@@ -72,5 +72,5 @@ def rem_channel(id):
         udB.set("BROADCAST", list_to_str(channels))
         return True
     except Exception as e:
-        print(f"Ultroid LOG : // functions/broadcast_db/rem_channel : {e}")
+        print(f"KannaBot LOG : // functions/broadcast_db/rem_channel : {e}")
         return False

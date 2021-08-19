@@ -44,7 +44,7 @@ def add_gblacklist(id):  # Take int or str with numbers only , Returns Boolean
         udB.set("GBLACKLISTS", list_to_str(gblack))
         return True
     except Exception as e:
-        print(f"Ultroid LOG : // functions/gcast_blacklist_db/add_gblacklist : {e}")
+        print(f"KannaBot LOG : // functions/gcast_blacklist_db/add_gblacklist : {e}")
         return False
 
 
@@ -56,5 +56,5 @@ def rem_gblacklist(id):  # Take int or str with numbers only , Returns Boolean
         udB.set("GBLACKLISTS", list_to_str(gblack))
         return True
     except Exception as e:
-        print(f"Ultroid LOG : // functions/gcast_blacklist_db/rem_gblacklist : {e}")
+        print(f"KannaBot LOG : // functions/gcast_blacklist_db/rem_gblacklist : {e}")
         return False

@@ -46,15 +46,15 @@ async def download_yt(xx, event, link, ytd):
         tm = f"{info['id']}.mp3"
         os.rename(tm, f"{title}.mp3")
         kk = f"{title}.mp3"
-        caption = f"`{title}`\n`From YouTubeMusic`"
+        caption = f"`{title}`\n`Do YouTubeMusic`"
     elif f"{info['id']}.mp4" in dir:
         os.rename(f"{info['id']}.mp4", f"{title}.mkv")
         kk = f"{title}.mkv"
         tm = f"{info['id']}"
-        caption = f"`{title}`\n\n`From YouTube Official`"
+        caption = f"`{title}`\n\n`Do YouTube Official`"
     else:
         return
-    res = await uploader(kk, kk, st, xx, "Uploading...")
+    res = await uploader(kk, kk, st, xx, "Enviando...")
     metadata = extractMetadata(createParser(res.name))
     wi = 512
     hi = 512

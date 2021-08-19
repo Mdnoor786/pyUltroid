@@ -56,7 +56,7 @@ def add_vcsudo(id):  # Take int or str with numbers only , Returns Boolean
         udB.set("VC_SUDOS", list_to_str(sudos))
         return True
     except Exception as e:
-        print(f"Ultroid LOG : // functions/sudos/add_sudo : {e}")
+        print(f"KannaBot LOG : // functions/sudos/add_sudo : {e}")
         return False
 
 
@@ -70,5 +70,5 @@ def del_vcsudo(id):  # Take int or str with numbers only , Returns Boolean
         udB.set("VC_SUDOS", list_to_str(sudos))
         return True
     except Exception as e:
-        print(f"Ultroid LOG : // functions/sudos/del_sudo : {e}")
+        print(f"KannaBot LOG : // functions/sudos/del_sudo : {e}")
         return False

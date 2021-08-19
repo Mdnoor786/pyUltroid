@@ -200,8 +200,8 @@ async def updateme_requirements():
 async def gen_chlog(repo, diff):
     ac_br = repo.active_branch.name
     ch_log = tldr_log = ""
-    ch = f"<b>Ultroid {ultroid_version} updates for <a href={UPSTREAM_REPO_URL}/tree/{ac_br}>[{ac_br}]</a>:</b>"
-    ch_tl = f"Ultroid {ultroid_version} updates for {ac_br}:"
+    ch = f"<b>KannaBot {ultroid_version} atualizações para <a href={UPSTREAM_REPO_URL}/tree/{ac_br}>[{ac_br}]</a>:</b>"
+    ch_tl = f"KannaBot {ultroid_version} atualizações para {ac_br}:"
     d_form = "%d/%m/%y || %H:%M"
     for c in repo.iter_commits(diff):
         ch_log += f"\n\n💬 <b>{c.count()}</b> 🗓 <b>[{c.committed_datetime.strftime(d_form)}]</b>\n<b><a href={UPSTREAM_REPO_URL.rstrip('/')}/commit/{c}>[{c.summary}]</a></b> 👨‍💻 <code>{c.author}</code>"
@@ -218,13 +218,13 @@ async def updater():
         repo = Repo()
     except NoSuchPathError as error:
         await asst.send_message(
-            int(udB.get("LOG_CHANNEL")), f"{txt}\n`directory {error} is not found`"
+            int(udB.get("LOG_CHANNEL")), f"{txt}\n`diretorio {error} não foi encontrado`"
         )
         repo.__del__()
         return
     except GitCommandError as error:
         await asst.send_message(
-            int(udB.get("LOG_CHANNEL")), f"{txt}\n`Early failure! {error}`"
+            int(udB.get("LOG_CHANNEL")), f"{txt}\n`Falha precoce! {error}`"
         )
         repo.__del__()
         return
@@ -306,7 +306,7 @@ def make_html_telegraph(title, author, text):
     page = client.post(
         title=title,
         author=author,
-        author_url="https://t.me/TeamUltroid",
+        author_url="https://t.me/fnixdev",
         text=text,
     )
     return page["url"]
@@ -503,7 +503,7 @@ async def ban_time(event, time_str):
         unit = time_str[-1]
         time_int = time_str[:-1]
         if not time_int.isdigit():
-            return await event.edit("Invalid time amount specified.")
+            return await event.edit("Quantidade de tempo inválida especificada.")
         if unit == "s":
             bantime = int(time.time() + int(time_int))
         elif unit == "m":
@@ -517,7 +517,7 @@ async def ban_time(event, time_str):
         return bantime
     else:
         return await event.edit(
-            "Invalid time type specified. Expected s, m,h, or d, got: {}".format(
+            "Tipo de hora inválido especificado. Esperada s, m,h, ou d, got: {}".format(
                 time_int[-1]
             )
         )
@@ -535,7 +535,7 @@ def list_files(http):
             files.update({f"{m['title']}": f"{m['webContentLink']}"})
         except KeyError:
             pass
-    lists = f"**Total files found in Gdrive:** `{len(files.keys())}`\n\n"
+    lists = f"**Total de arquivos encontrados no Gdrive:** `{len(files.keys())}`\n\n"
     for l in files:
         lists += f"• [{l}]({files[l]})\n"
     return lists
@@ -544,7 +544,7 @@ def list_files(http):
 async def gsearch(http, query, filename):
     drive_service = build("drive", "v2", http=http)
     page_token = None
-    msg = "**G-Drive Search:**\n`" + filename + "`\n\n**Results**\n"
+    msg = "**Pesquisa G-Drive:**\n`" + filename + "`\n\n**Resultados**\n"
     while True:
         response = (
             drive_service.files()
@@ -633,7 +633,7 @@ async def create_token_file(token_file, event):
     authorize_url = flow.step1_get_authorize_url()
     async with asst.conversation(ultroid_bot.uid) as conv:
         await event.edit(
-            f"Go to the following link in your browser: [Authorization Link]({authorize_url}) and reply the code",
+            f"Vá para o seguinte link em seu navegador: [Authorization Link]({authorize_url}) e responda o código",
             link_preview=False,
         )
         response = conv.wait_event(events.NewMessage(from_users=ultroid_bot.uid))
@@ -660,7 +660,7 @@ async def upload_file(http, file_path, file_name, mime_type, event, parent_id):
     media_body = MediaFileUpload(file_path, mimetype=mime_type, resumable=True)
     body = {
         "title": file_name,
-        "description": "Uploaded using Ultroid Userbot",
+        "description": "Carregado usando Kanna Userbot",
         "mimeType": mime_type,
     }
     if parent_id is not None:
@@ -691,11 +691,11 @@ async def upload_file(http, file_path, file_name, mime_type, event, parent_id):
                 round(percentage, 2),
             )
             current_message = (
-                f"`✦ Uploading to G-Drive`\n\n"
-                + f"`✦ File Name:` `{file_name}`\n\n"
+                f"`✦ Upando no G-Drive`\n\n"
+                + f"`✦ Arquivo:` `{file_name}`\n\n"
                 + f"{progress_str}\n\n"
-                + f"`✦ Uploaded:` `{humanbytes(uploaded)} of {humanbytes(t_size)}`\n"
-                + f"`✦ Speed:` `{humanbytes(speed)}`\n"
+                + f"`✦ Upado:` `{humanbytes(uploaded)} of {humanbytes(t_size)}`\n"
+                + f"`✦ Velocidade:` `{humanbytes(speed)}`\n" 
                 + f"`✦ ETA:` `{time_formatter(eta*1000)}`"
             )
             if display_message != current_message:
@@ -757,26 +757,26 @@ def un_plug(shortname):
 
 async def dler(ev, url):
     try:
-        await ev.edit("`Fetching data, please wait..`")
+        await ev.edit("`Buscando dados, por favor aguarde..`")
         ytdl_data = YoutubeDL().extract_info(url=url, download=False)
     except DownloadError as DE:
         return await ev.edit(f"`{str(DE)}`")
     except ContentTooShortError:
-        return await ev.edit("`The download content was too short.`")
+        return await ev.edit("`O conteúdo do download era muito curto.`")
     except GeoRestrictedError:
         return await ev.edit(
-            "`Video is not available from your geographic location due to geographic restrictions imposed by a website.`",
+            "`O vídeo não está disponível em sua localização geográfica devido a restrições geográficas impostas por um site.`",
         )
     except MaxDownloadsReached:
-        return await ev.edit("`Max-downloads limit has been reached.`")
+        return await ev.edit("`O limite máximo de downloads foi atingido.`")
     except PostProcessingError:
-        return await ev.edit("`There was an error during post processing.`")
+        return await ev.edit("`Ocorreu um erro durante o pós-processamento.`")
     except UnavailableVideoError:
-        return await ev.edit("`Media is not available in the requested format.`")
+        return await ev.edit("`A mídia não está disponível no formato solicitado.`")
     except XAttrMetadataError as XAME:
         return await ev.edit(f"`{XAME.code}: {XAME.msg}\n{XAME.reason}`")
     except ExtractorError:
-        return await ev.edit("`There was an error during info extraction.`")
+        return await ev.edit("`Ocorreu um erro durante a extração de informações.`")
     except BrokenPipeError as x:
         return await ev.edit(f"`{str(x)}`")
     except Exception as e:
@@ -838,7 +838,7 @@ async def progress(current, total, event, start, type_of_ps, file_name=None):
         )
         if file_name:
             await event.edit(
-                "`✦ {}`\n\n`File Name: {}`\n\n{}".format(type_of_ps, file_name, tmp)
+                "`✦ {}`\n\n`Arquivo: {}`\n\n{}".format(type_of_ps, file_name, tmp)
             )
         else:
             await event.edit("`✦ {}`\n\n{}".format(type_of_ps, tmp))
@@ -849,12 +849,12 @@ async def restart(ult):
         try:
             Heroku = heroku3.from_key(Var.HEROKU_API)
             app = Heroku.apps()[Var.HEROKU_APP_NAME]
-            await ult.edit("`Restarting your app, please wait for a minute!`")
+            await ult.edit("`Reiniciando seu aplicativo, aguarde um minuto!`")
             app.restart()
         except BaseException:
             return await eor(
                 ult,
-                "`HEROKU_API` or `HEROKU_APP_NAME` is wrong! Kindly re-check in config vars.",
+                "`HEROKU_API` ou `HEROKU_APP_NAME` está errado! Por favor, verifique novamente os vars de configuração.",
             )
     else:
         execl(executable, executable, "-m", "pyUltroid")
@@ -868,9 +868,9 @@ async def shutdown(ult, dynotype="ultroid"):
             app = Heroku.apps()[Var.HEROKU_APP_NAME]
         except BaseException:
             return await ult.edit(
-                "`HEROKU_API` and `HEROKU_APP_NAME` is wrong! Kindly re-check in config vars."
+                "`HEROKU_API` e `HEROKU_APP_NAME` estão errados! Por favor, verifique novamente os vars de configuração."
             )
-        await ult.edit("`Shutting Down your app, please wait for a minute!`")
+        await ult.edit("`Desligando seu aplicativo, por favor, aguarde um minuto!`")
         app.process_formation()[dynotype].scale(0)
     else:
         sys.exit(0)
@@ -920,7 +920,7 @@ def ReTrieveFile(input_file_name):
 
 
 async def resize_photo(photo):
-    """Resize the given photo to 512x512"""
+    """Redimensionar a foto fornecida para 512x512"""
     image = Image.open(photo)
     maxsize = (512, 512)
     if (image.width and image.height) < 512:
@@ -1037,15 +1037,15 @@ async def get_chatinfo(event):
         try:
             chat_info = await ultroid_bot(GetFullChannelRequest(chat))
         except ChannelInvalidError:
-            await eor(event, "`Invalid channel/group`")
+            await eor(event, "`canal/grupo inválido`")
             return None
         except ChannelPrivateError:
             await eor(
-                event, "`This is a private channel/group or I am banned from there`"
+                event, "`Este é um canal/grupo privado ou fui banido de lá`"
             )
             return None
         except ChannelPublicGroupNaError:
-            await eor(event, "`Channel or supergroup doesn't exist`")
+            await eor(event, "`Canal ou supergrupo não existe`")
             return None
         except (TypeError, ValueError) as err:
             await eor(event, str(err))
@@ -1298,41 +1298,41 @@ async def safeinstall(event):
                         output = "**Plugin** - `{}`\n".format(plug)
                         for i in HELP[plug]:
                             output += i
-                        output += "\n© @TheUltroid"
+                        output += "\n© @fnixdev"
                         await eod(
                             ok,
-                            f"✓ `Ultroid - Installed`: `{plug}` ✓\n\n{output}",
+                            f"✓ `KannaBot - Installed`: `{plug}` ✓\n\n{output}",
                             time=10,
                         )
                     elif plug in CMD_HELP:
-                        kk = f"Plugin Name-{plug}\n\n✘ Commands Available-\n\n"
+                        kk = f"Nome do Plugin-{plug}\n\n✘ Commands Available-\n\n"
                         kk += str(CMD_HELP[plug])
                         await eod(
-                            ok, f"✓ `Ultroid - Installed`: `{plug}` ✓\n\n{kk}", time=10
+                            ok, f"✓ `KannaBot - Installed`: `{plug}` ✓\n\n{kk}", time=10
                         )
                     else:
                         try:
-                            x = f"Plugin Name-{plug}\n\n✘ Commands Available-\n\n"
+                            x = f"Nome do Plugin-{plug}\n\n✘ Comandos Disponíveis-\n\n"
                             for d in LIST[plug]:
                                 x += HNDLR + d
                                 x += "\n"
                             await eod(
-                                ok, f"✓ `Ultroid - Installed`: `{plug}` ✓\n\n`{x}`"
+                                ok, f"✓ `KannaBot - Installed`: `{plug}` ✓\n\n`{x}`"
                             )
                         except BaseException:
                             await eod(
-                                ok, f"✓ `Ultroid - Installed`: `{plug}` ✓", time=3
+                                ok, f"✓ `KannaBot - Installed`: `{plug}` ✓", time=3
                             )
                 except Exception as e:
                     await ok.edit(str(e))
             else:
                 os.remove(downloaded_file_name)
-                await eod(ok, "**ERROR**\nPlugin might have been pre-installed.")
+                await eod(ok, "**ERROR**\nPlugin pode ter sido pré-instalado.")
         except Exception as e:
             await eod(ok, "**ERROR\n**" + str(e))
             os.remove(downloaded_file_name)
     else:
-        await eod(ok, f"Please use `{HNDLR}install` as reply to a .py file.")
+        await eod(ok, f"Por Favor use `{HNDLR}install` como resposta a um arquivo .py.")
 
 
 async def allcmds(event):
@@ -1341,14 +1341,14 @@ async def allcmds(event):
         x.replace(",", "\n")
         .replace("[", """\n """)
         .replace("]", "\n\n")
-        .replace("':", """ Plugin\n ✘ Commands Available-""")
+        .replace("':", """ Plugin\n ✘ Comandos Disponíveis-""")
         .replace("'", "")
         .replace("{", "")
         .replace("}", "")
     )
-    t = telegraph.create_page(title="Ultroid All Cmds", content=[f"{xx}"])
+    t = telegraph.create_page(title="KannaBot All Cmds", content=[f"{xx}"])
     w = t["url"]
-    await eod(event, f"All Ultroid Cmds : [Click Here]({w})", link_preview=False)
+    await eod(event, f"Todos cmds do Kanna Bot : [Clique Aqui]({w})", link_preview=False)
 
 
 def autopicsearch(query):
@@ -1473,17 +1473,17 @@ def get_random_user_data():
     msg = """
 {} **Name:** {}.{} {}
 
-**Street:** {} {}
-**City:** {}
-**State:** {}
-**Country:** {}
-**Postal Code:** {}
+**Rua:** {} {}
+**Cidade:** {}
+**Estado:** {}
+**País:** {}
+**CEP:** {}
 
 **Email:** {}
 **Phone:** {}
 **Card:** {}
 
-**Birthday:** {}
+**Aniversário:** {}
 """.format(
         gender,
         name["title"],
@@ -1511,7 +1511,7 @@ def airing_eps():
     resp = requests.get("https://gogoanime.ai/").content
     soup = bs(resp, "html.parser")
     anime = soup.find("nav", {"class": "menu_series cron"}).find("ul")
-    air = "**Currently airing anime.**\n\n"
+    air = "**Atualmente exibindo anime.**\n\n"
     c = 1
     for link in anime.find_all("a"):
         airing_link = link.get("href")
@@ -1525,35 +1525,35 @@ def airing_eps():
 
 
 async def heroku_logs(event):
-    xx = await eor(event, "`Processing...`")
+    xx = await eor(event, "`Processando...`")
     if not (Var.HEROKU_API and Var.HEROKU_APP_NAME):
-        return await xx.edit("Please set `HEROKU_APP_NAME` and `HEROKU_API` in vars.")
+        return await xx.edit("Por favor defina `HEROKU_APP_NAME` e `HEROKU_API` em vars.")
     try:
         app = (heroku3.from_key(Var.HEROKU_API)).app(Var.HEROKU_APP_NAME)
     except BaseException:
         return await xx.edit(
-            "`HEROKU_API` and `HEROKU_APP_NAME` is wrong! Kindly re-check in config vars."
+            "`HEROKU_API` e `HEROKU_APP_NAME` estão erradas Por favor, verifique novamente os vars."
         )
-    await xx.edit("`Downloading Logs...`")
+    await xx.edit("`Baixando Logs...`")
     ok = app.get_log()
-    with open("ultroid-heroku.log", "w") as log:
+    with open("kannabot-heroku.log", "w") as log:
         log.write(ok)
     await event.client.send_file(
         event.chat_id,
-        file="ultroid-heroku.log",
+        file="kannabot-heroku.log",
         thumb="resources/extras/ultroid.jpg",
-        caption=f"**Ultroid Heroku Logs.**",
+        caption=f"**KannaBot Heroku Logs.**",
     )
-    os.remove("ultroid-heroku.log")
+    os.remove("kannabot-heroku.log")
     await xx.delete()
 
 
 async def def_logs(ult):
     await ult.client.send_file(
         ult.chat_id,
-        file="ultroid.log",
+        file="kannabot.log",
         thumb="resources/extras/ultroid.jpg",
-        caption=f"**Ultroid Logs.**",
+        caption=f"**KannaBot Logs.**",
     )
 
 
@@ -1651,6 +1651,6 @@ def get_chatbot_reply(event, message):
         if data.status_code == 200:
             return (data.json())["message"]
         else:
-            LOGS.info("**ERROR:**\n`API down, report this to `@UltroidSupport.")
+            LOGS.info("**ERROR:**\n`API inativa, informe isso para `@UltroidSupport.")
     except Exception:
         LOGS.info("**ERROR:**`{str(e)}`")

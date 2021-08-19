@@ -20,14 +20,14 @@ from telethon.utils import get_display_name
 from .. import asst, ultroid_bot
 from . import owner_and_sudos
 
-ULTROID_PIC = "https://telegra.ph/file/11245cacbffe92e5d5b14.jpg"
+ULTROID_PIC = "https://telegra.ph/file/c2d0614286d42526b0d1b.jpg"
 
 MSG = f"""
-**Ultroid - UserBot**
-➖➖➖➖➖➖➖➖➖➖
-**Owner**: [{get_display_name(ultroid_bot.me)}](tg://user?id={ultroid_bot.uid})
-**Support**: @TeamUltroid
-➖➖➖➖➖➖➖➖➖➖
+**Kanna - UserBot**
+◇─◇──◇───◇───◇──◇─◇
+**Dono**: [{get_display_name(ultroid_bot.me)}](tg://user?id={ultroid_bot.uid})
+**Suporte**: @fnixdev
+◇─◇──◇───◇───◇──◇─◇
 """
 
 # decorator for assistant
@@ -46,26 +46,26 @@ def inline_owner():
                 try:
                     builder = event.builder
                     sur = builder.article(
-                        title="Ultroid Userbot",
-                        url="https://t.me/TheUltroid",
-                        description="(c) TeamUltroid",
+                        title="Kanna Userbot",
+                        url="https://t.me/kannabotup",
+                        description="(c) fnixdev",
                         text=MSG,
                         thumb=InputWebDocument(ULTROID_PIC, 0, "image/jpeg", []),
                         buttons=[
                             [
                                 Button.url(
-                                    "Repository",
+                                    "Repositorio",
                                     url="https://github.com/fnixdev/KannaBot",
                                 ),
                                 Button.url(
-                                    "Support", url="https://t.me/UltroidSupport"
+                                    "Suporte", url="https://t.me/fnixdev"
                                 ),
                             ]
                         ],
                     )
                     await event.answer(
                         [sur],
-                        switch_pm=f"🤖: Assistant of {OWNER_NAME}",
+                        switch_pm=f"🤖: Assistente de {OWNER_NAME}",
                         switch_pm_param="start",
                     )
                 except BaseException:

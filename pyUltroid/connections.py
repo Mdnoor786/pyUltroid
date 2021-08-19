@@ -28,9 +28,9 @@ from .version import ultroid_version
 
 LOGS = getLogger("pyUltroid")
 
-if os.path.exists("ultroid.log"):
+if os.path.exists("kannabot.log"):
     try:
-        os.remove("ultroid.log")
+        os.remove("kannabot.log")
     except BaseException:
         pass
 
@@ -38,41 +38,41 @@ basicConfig(
     format="%(asctime)s || %(name)s [%(levelname)s] - %(message)s",
     level=INFO,
     datefmt="%m/%d/%Y, %H:%M:%S",
-    handlers=[FileHandler("ultroid.log"), StreamHandler()],
+    handlers=[FileHandler("kannabot.log"), StreamHandler()],
 )
 
 LOGS.info(
     """
                 -----------------------------------
-                        Starting Deployment
+                      Iniciando a Instalação
                 -----------------------------------
 """
 )
 LOGS.info(f"py-Ultroid Version - {ver}")
 LOGS.info(f"Telethon Version - {vers}")
-LOGS.info(f"Ultroid Version - {ultroid_version}")
+LOGS.info(f"KannaBot Version - {ultroid_version}")
 
 
 def connect_redis():
     if Var.REDIS_URI and Var.REDIS_PASSWORD:
         err = ""
         if ":" not in Var.REDIS_URI:
-            err += "\nWrong REDIS_URI. Quitting...\n"
+            err += "\nREDIS_URI Inválida. Saindo...\n"
         if "/" in Var.REDIS_URI:
-            err += "Your REDIS_URI should start with redis.xxx. Quitting...\n"
+            err += "Sua REDIS_URI deve começar com redis.xxx. Saindo...\n"
         if " " in Var.REDIS_URI:
-            err += "Remove space from REDIS_URI\n"
+            err += "Remova os espaçoes em REDIS_URI\n"
         if " " in Var.REDIS_PASSWORD:
-            err += "Remove space from REDIS_PASSWORD\n"
+            err += "Remova os espaçoes em REDIS_PASSWORD\n"
         if "\n" in Var.REDIS_URI:
-            err += "Remove new-line from REDIS_URI\n"
+            err += "Remova new-line de REDIS_URI\n"
         if "\n" in Var.REDIS_PASSWORD:
-            err += "Remove new-line from REDIS_PASSWORD\n"
+            err += "Remova new-line de REDIS_PASSWORD\n"
         if err != "":
             LOGS.info(err)
             exit(1)
         redis_info = Var.REDIS_URI.split(":")
-        LOGS.info("Getting Connection With Redis Database")
+        LOGS.info("Obtendo conexão com o banco de dados Redis")
         time.sleep(3.5)
         return redis.Redis(
             host=redis_info[0],
@@ -81,7 +81,7 @@ def connect_redis():
             decode_responses=True,
         )
     else:
-        LOGS.info("Getting Connection With Redis Database")
+        LOGS.info("Obtendo conexão com o banco de dados Redis")
         time.sleep(3.5)
         return connect_qovery_redis()
         """
@@ -103,7 +103,7 @@ def redis_connection():
         our_db.ping()
     except BaseException:
         connected = []
-        LOGS.info("Can't connect to Redis Database.... Restarting....")
+        LOGS.info("Não é possível conectar ao banco de dados Redis.... Reiniciando....")
         for x in range(1, 6):
             try:
                 our_db = connect_redis()
@@ -113,14 +113,14 @@ def redis_connection():
                     break
             except BaseException as conn:
                 LOGS.info(
-                    f"{(conn)}\nConnection Failed ...  Trying To Reconnect {x}/5 .."
+                    f"{(conn)}\nFalha na Conexão ...  Tentando reconectar {x}/5 .."
                 )
         if not connected:
-            LOGS.info("Redis Connection Failed.....")
+            LOGS.info("Falha na Conexão com Redis....")
             exit(1)
         else:
-            LOGS.info("Reconnected To Redis Server Succesfully")
-    LOGS.info("Succesfully Established Connection With Redis DataBase.")
+            LOGS.info("Conectado ao servidor Redis com sucesso")
+    LOGS.info("Conexão estabelecida com sucesso com o banco de dados Redis.")
     return our_db
 
 
@@ -130,7 +130,7 @@ def session_file():
     elif Var.SESSION:
         _session = StringSession(Var.SESSION)
     else:
-        LOGS.info("No String Session found. Quitting...")
+        LOGS.info("Nenhuma Session String encontrada. Saindo...")
         exit(1)
     return _session
 
@@ -141,12 +141,12 @@ def client_connection():
         bot_client = TelegramClient(None, api_id=Var.API_ID, api_hash=Var.API_HASH)
     except (AuthKeyDuplicatedError, PhoneNumberInvalidError, EOFError):
         LOGS.info(
-            "String Session Expired. Please Create New String Session. Quitting..."
+            "String Session Expirado. Crie uma nova sessão de string. Saindo..."
         )
         exit(1)
     except ApiIdInvalidError:
         LOGS.info(
-            "API_ID and API_HASH combination invalid. Please Re-Check. Quitting..."
+            "API_ID e API_HASH combinação inválida. Por favor, cheque novamente. Saindo..."
         )
         exit(1)
     except Exception as ap:
@@ -191,7 +191,7 @@ def connect_qovery_redis():
                 # or config(f"QOVERY_REDIS_{hash}_PASSWORD")
                 passw = os.environ[f"QOVERY_REDIS_{hash}_PASSWORD"]
             except KeyError:
-                LOGS.info("Redis Vars are missing. Quitting.")
+                LOGS.info("Faltam Redis Vars. Saindo.")
                 exit(1)
             except Exception as er:
                 LOGS.info(er)

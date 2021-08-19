@@ -47,7 +47,7 @@ def log_user(id):  # Take int or str with numbers only , Returns Boolean
         udB.set("LOGUSERS", list_to_str(pmperm))
         return True
     except Exception as e:
-        print(f"Ultroid LOG : // functions/logusers_db/log_user : {e}")
+        print(f"KannaBot LOG : // functions/logusers_db/log_user : {e}")
         return False
 
 
@@ -61,5 +61,5 @@ def nolog_user(id):  # Take int or str with numbers only , Returns Boolean
         udB.set("LOGUSERS", list_to_str(pmperm))
         return True
     except Exception as e:
-        print(f"Ultroid LOG : // functions/loguser_db/nolog_user : {e}")
+        print(f"KannaBot LOG : // functions/loguser_db/nolog_user : {e}")
         return False

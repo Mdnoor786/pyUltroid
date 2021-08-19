@@ -70,7 +70,7 @@ if udB.get("TIMEZONE"):
         time.tzset()
     except BaseException:
         LOGS.info(
-            "Incorrect Timezone ,\nCheck Available Timezone From Here https://telegra.ph/Ultroid-06-18-2\nSo Time is Default UTC"
+            "Fuso horário incorreto,\nVerifique o fuso horário disponível a partir daqui https://telegra.ph/TimeZone-08-19 \nPortanto, o tempo é UTC padrão"
         )
         os.environ["TZ"] = "UTC"
         time.tzset()
@@ -184,7 +184,7 @@ async def autopilot():
         r = await ultroid_bot(
             CreateChannelRequest(
                 title="KannaBot Logs",
-                about="Grupo de logs do seu KannaBot\n\n Evite alterar configurações para não bugar\n Duvidas? > @fnixdev",
+                about="Grupo de logs do seu KannaBot\n\n Evite alterar configurações para não bugar\n Duvidas? > @fnixdev <",
                 megagroup=True,
             ),
         )

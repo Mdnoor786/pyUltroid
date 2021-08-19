@@ -127,9 +127,9 @@ def ultroid_cmd(allow_sudo=should_allow_sudo(), **args):
                             return
                     if admins_only:
                         if ult.is_private:
-                            return await eod(ult, "`Use this in group/channel.`")
+                            return await eod(ult, "`Use isto em grupo/canal.`")
                         if not (chat.admin_rights or chat.creator):
-                            return await eod(ult, "`I am not an admin.`")
+                            return await eod(ult, "`Eu não sou um administrador.`")
                 elif mode == "dualmode":
                     if str(ult.sender_id) not in owner_and_sudos():
                         return
@@ -137,7 +137,7 @@ def ultroid_cmd(allow_sudo=should_allow_sudo(), **args):
                     if not (ult.out or await admin_check(ult)):
                         return
                 if groups_only and ult.is_private:
-                    return await eod(ult, "`Use this in group/channel.`")
+                    return await eod(ult, "`Use isto em grupo/canal.`")
                 try:
                     await func(ult)
                 except FloodWaitError as fwerr:
@@ -148,10 +148,10 @@ def ultroid_cmd(allow_sudo=should_allow_sudo(), **args):
                     sleep(fwerr.seconds + 10)
                     await asst.send_message(
                         int(udB.get("LOG_CHANNEL")),
-                        "`Bot is working again`",
+                        "`O bot está funcionando novamente`",
                     )
                 except ChatSendInlineForbiddenError:
-                    return await eod(ult, "`Inline Locked In This Chat.`")
+                    return await eod(ult, "`Inline bloqueado neste bate-papo.`")
                 except (BotMethodInvalidError, UserIsBotError) as boterror:
                     return await eod(ult, str(boterror))
                 except MessageIdInvalidError:
@@ -168,7 +168,7 @@ def ultroid_cmd(allow_sudo=should_allow_sudo(), **args):
                     ftext += "`Py-Ultroid Version: " + str(pyver)
                     ftext += "\nUltroid Version: " + str(ult_ver)
                     ftext += "\nTelethon Version: " + str(telever) + "\n\n"
-                    ftext += "--------START ULTROID CRASH LOG--------"
+                    ftext += "--------START KANNA CRASH LOG--------"
                     ftext += "\nDate: " + date
                     ftext += "\nGroup: " + str(ult.chat_id) + " " + str(naam)
                     ftext += "\nSender ID: " + str(ult.sender_id)
@@ -179,7 +179,7 @@ def ultroid_cmd(allow_sudo=should_allow_sudo(), **args):
                     ftext += str(format_exc())
                     ftext += "\n\nError text:\n"
                     ftext += str(sys.exc_info()[1])
-                    ftext += "\n\n--------END ULTROID CRASH LOG--------"
+                    ftext += "\n\n--------END KANNA CRASH LOG--------"
                     ftext += "\n\n\nLast 5 commits:\n"
 
                     stdout, stderr = await bash('git log --pretty=format:"%an: %s" -5')
@@ -193,7 +193,7 @@ def ultroid_cmd(allow_sudo=should_allow_sudo(), **args):
                         await asst.send_file(
                             int(udB["LOG_CHANNEL"]),
                             "logs.txt",
-                            caption="**Ultroid Client Error:** `Forward this to` @UltroidSupport\n\n",
+                            caption="**Kanna Client Error:** `Forward this to` @UltroidSupport\n\n",
                         )
                         os.remove("logs.txt")
                     else:
