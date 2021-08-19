@@ -164,7 +164,7 @@ def ultroid_cmd(allow_sudo=should_allow_sudo(), **args):
                     LOGS.exception(e)
                     date = strftime("%Y-%m-%d %H:%M:%S", gmtime())
                     naam = get_display_name(chat)
-                    ftext = "**Ultroid Client Error:** `Forward this to` @UltroidSupport\n\n"
+                    ftext = "**KannaBot Client Error:** `Forward this to` @UltroidSupport\n\n"
                     ftext += "`Py-Ultroid Version: " + str(pyver)
                     ftext += "\nKannaBot Version: " + str(ult_ver)
                     ftext += "\nTelethon Version: " + str(telever) + "\n\n"
@@ -193,7 +193,7 @@ def ultroid_cmd(allow_sudo=should_allow_sudo(), **args):
                         await asst.send_file(
                             int(udB["LOG_CHANNEL"]),
                             "logs.txt",
-                            caption="**Ultroid Client Error:** `Forward this to` @UltroidSupport\n\n",
+                            caption="**KannaBot Client Error:** `Forward this to` @UltroidSupport\n\n",
                         )
                         os.remove("logs.txt")
                     else:
