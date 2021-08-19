@@ -1,7 +1,7 @@
 # Ultroid - UserBot
 # Copyright (C) 2021 TeamUltroid
 #
-# This file is a part of < https://github.com/fnixdev/KannaBot/ >
+# This file is a part of < https://github.com/TeamUltroid/Ultroid/ >
 # PLease read the GNU Affero General Public License in
 # <https://www.github.com/TeamUltroid/Ultroid/blob/main/LICENSE/>.
 
@@ -25,7 +25,7 @@ def plugin_loader(addons=None, pmbot=None, manager=None, vcbot=None):
         try:
             if plugin_name.endswith(".py"):
                 load_plugins(plugin_name[:-3])
-                LOGS.info(f"KannaBot - Official -  Instalado - {plugin_name}")
+                LOGS.info(f"KannaBot - Official -  Installed - {plugin_name}")
         except Exception as exc:
             LOGS.info(f"KannaBot - Official - ERROR - {plugin_name}")
             LOGS.info(str(type(exc)) + ": " + str(exc))
@@ -37,7 +37,7 @@ def plugin_loader(addons=None, pmbot=None, manager=None, vcbot=None):
         try:
             if plugin_name.endswith(".py"):
                 load_assistant(plugin_name[:-3])
-                LOGS.info(f"KannaBot - Assistant -  Instalado - {plugin_name}")
+                LOGS.info(f"KannaBot - Assistant -  Installed - {plugin_name}")
         except Exception as exc:
             LOGS.info(f"KannaBot - Assistant - ERROR - {plugin_name}")
             LOGS.info(str(type(exc)) + ": " + str(exc))
@@ -47,12 +47,12 @@ def plugin_loader(addons=None, pmbot=None, manager=None, vcbot=None):
     if addons == "True" or not addons:
         try:
             os.system(
-                "git clone https://github.com/TeamUltroid/UltroidAddons addons/"
+                "git clone https://github.com/TeamUltroid/UltroidAddons.git addons/"
             )
         except BaseException:
             pass
         """
-        LOGS.info("Instalando pacotes para addons")
+        LOGS.info("Installing packages for addons")
         os.system("pip install -r addons/addons.txt")
         """
         files = sorted(os.listdir("addons"))
@@ -60,7 +60,7 @@ def plugin_loader(addons=None, pmbot=None, manager=None, vcbot=None):
             try:
                 if plugin_name.endswith(".py"):
                     load_addons(plugin_name[:-3])
-                    LOGS.info(f"KannaBot - Addons -  Instalado - {plugin_name}")
+                    LOGS.info(f"KannaBot - Addons -  Installed - {plugin_name}")
             except Exception as exc:
                 LOGS.info(f"KannaBot - Addons - ERROR - {plugin_name}")
                 LOGS.info(str(type(exc)) + ": " + str(exc))
@@ -75,7 +75,7 @@ def plugin_loader(addons=None, pmbot=None, manager=None, vcbot=None):
         for plugin_name in files:
             if plugin_name.endswith(".py"):
                 load_manager(plugin_name[:-3])
-                LOGS.info(f"KannaBot - Group Manager - Instalado - {plugin_name}.")
+                LOGS.info(f"KannaBot - Group Manager - Installed - {plugin_name}.")
         LOGS.info("-" * 70)
 
     # chat via assistant
@@ -84,7 +84,7 @@ def plugin_loader(addons=None, pmbot=None, manager=None, vcbot=None):
         for plugin_name in files:
             if plugin_name.endswith(".py"):
                 load_pmbot(plugin_name[:-3])
-        LOGS.info(f"KannaBot - PM Bot Encaminhamento de MSG - Ativado.")
+        LOGS.info(f"KannaBot - PM Bot Message Forwards - Enabled.")
         LOGS.info("-" * 70)
 
     # vc bot
@@ -94,5 +94,5 @@ def plugin_loader(addons=None, pmbot=None, manager=None, vcbot=None):
             if plugin_name.endswith(".py"):
                 load_vc(plugin_name[:-3])
             if not plugin_name.startswith("_"):
-                LOGS.info(f"KannaBot - VC Bot - Instalado - {plugin_name}.")
+                LOGS.info(f"KannaBot - VC Bot - Installed - {plugin_name}.")
         LOGS.info("-" * 70)
