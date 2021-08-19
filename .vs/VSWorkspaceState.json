@@ -3,8 +3,9 @@
     "",
     "\\pyUltroid",
     "\\pyUltroid\\dB",
+    "\\pyUltroid\\misc",
     "\\py_Ultroid.egg-info"
   ],
-  "SelectedNode": "\\pyUltroid\\connections.py",
+  "SelectedNode": "\\pyUltroid\\misc\\_decorators.py",
   "PreviewInSolutionExplorer": false
 }
