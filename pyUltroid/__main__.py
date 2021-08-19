@@ -385,7 +385,7 @@ async def ready():
             LOGS.info(ef)
     try:
         # To Let Them know About New Updates and Changes
-        await ultroid_bot(JoinChannelRequest("@TheUltroid"))
+        await ultroid_bot(JoinChannelRequest("@kannabotup"))
     except BaseException:
         pass
 
