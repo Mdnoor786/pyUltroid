@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\pyUltroid",
+    "\\py_Ultroid.egg-info"
   ],
-  "SelectedNode": "\\pyUltroid",
+  "SelectedNode": "\\pyUltroid\\connections.py",
   "PreviewInSolutionExplorer": false
 }
