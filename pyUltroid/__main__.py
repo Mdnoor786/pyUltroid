@@ -337,7 +337,7 @@ async def customize():
             await ultroid_bot.send_message("botfather", UL)
             await asyncio.sleep(1)
             await ultroid_bot.send_file(
-                "botfather", "resources/extras/ultroid_assistent.png"
+                "botfather", "resources/extras/ultroid_assistant.png"
             )
             await asyncio.sleep(2)
             await ultroid_bot.send_message("botfather", "/setabouttext")
@@ -358,7 +358,7 @@ async def customize():
             )
             await asyncio.sleep(2)
             await ultroid_bot.send_message(
-                chat_id, "**Auto Customisation** Done at @BotFather"
+                chat_id, "**Personalização Automática** Finalizada em @botfather"
             )
             LOGS.info("Personalização finalizda")
     except Exception as e:

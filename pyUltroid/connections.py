@@ -44,7 +44,7 @@ basicConfig(
 LOGS.info(
     """
                 -----------------------------------
-                        Starting Deployment
+                        Iniciando Deploy
                 -----------------------------------
 """
 )

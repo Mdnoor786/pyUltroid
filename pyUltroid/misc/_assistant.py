@@ -20,7 +20,7 @@ from telethon.utils import get_display_name
 from .. import asst, ultroid_bot
 from . import owner_and_sudos
 
-ULTROID_PIC = "https://telegra.ph/file/c2d0614286d42526b0d1b.jpg"
+ULTROID_PIC = "https://telegra.ph/file/b46a1c21b0a0c2c99943b.jpg"
 
 MSG = f"""
 **Kanna - UserBot**
