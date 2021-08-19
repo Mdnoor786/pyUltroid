@@ -25,9 +25,9 @@ def plugin_loader(addons=None, pmbot=None, manager=None, vcbot=None):
         try:
             if plugin_name.endswith(".py"):
                 load_plugins(plugin_name[:-3])
-                LOGS.info(f"KannaBot - Official -  Installed - {plugin_name}")
+                LOGS.info(f"Ultroid - Official -  Installed - {plugin_name}")
         except Exception as exc:
-            LOGS.info(f"KannaBot - Official - ERROR - {plugin_name}")
+            LOGS.info(f"Ultroid - Official - ERROR - {plugin_name}")
             LOGS.info(str(type(exc)) + ": " + str(exc))
     LOGS.info("-" * 70)
 
@@ -37,9 +37,9 @@ def plugin_loader(addons=None, pmbot=None, manager=None, vcbot=None):
         try:
             if plugin_name.endswith(".py"):
                 load_assistant(plugin_name[:-3])
-                LOGS.info(f"KannaBot - Assistant -  Installed - {plugin_name}")
+                LOGS.info(f"Ultroid - Assistant -  Installed - {plugin_name}")
         except Exception as exc:
-            LOGS.info(f"KannaBot - Assistant - ERROR - {plugin_name}")
+            LOGS.info(f"Ultroid - Assistant - ERROR - {plugin_name}")
             LOGS.info(str(type(exc)) + ": " + str(exc))
     LOGS.info("-" * 70)
 
@@ -60,9 +60,9 @@ def plugin_loader(addons=None, pmbot=None, manager=None, vcbot=None):
             try:
                 if plugin_name.endswith(".py"):
                     load_addons(plugin_name[:-3])
-                    LOGS.info(f"KannaBot - Addons -  Installed - {plugin_name}")
+                    LOGS.info(f"Ultroid - Addons -  Installed - {plugin_name}")
             except Exception as exc:
-                LOGS.info(f"KannaBot - Addons - ERROR - {plugin_name}")
+                LOGS.info(f"Ultroid - Addons - ERROR - {plugin_name}")
                 LOGS.info(str(type(exc)) + ": " + str(exc))
         LOGS.info("-" * 70)
     else:
@@ -75,7 +75,7 @@ def plugin_loader(addons=None, pmbot=None, manager=None, vcbot=None):
         for plugin_name in files:
             if plugin_name.endswith(".py"):
                 load_manager(plugin_name[:-3])
-                LOGS.info(f"KannaBot - Group Manager - Installed - {plugin_name}.")
+                LOGS.info(f"Ultroid - Group Manager - Installed - {plugin_name}.")
         LOGS.info("-" * 70)
 
     # chat via assistant
@@ -84,7 +84,7 @@ def plugin_loader(addons=None, pmbot=None, manager=None, vcbot=None):
         for plugin_name in files:
             if plugin_name.endswith(".py"):
                 load_pmbot(plugin_name[:-3])
-        LOGS.info(f"KannaBot - PM Bot Message Forwards - Enabled.")
+        LOGS.info(f"Ultroid - PM Bot Message Forwards - Enabled.")
         LOGS.info("-" * 70)
 
     # vc bot
@@ -94,5 +94,5 @@ def plugin_loader(addons=None, pmbot=None, manager=None, vcbot=None):
             if plugin_name.endswith(".py"):
                 load_vc(plugin_name[:-3])
             if not plugin_name.startswith("_"):
-                LOGS.info(f"KannaBot - VC Bot - Installed - {plugin_name}.")
+                LOGS.info(f"Ultroid - VC Bot - Installed - {plugin_name}.")
         LOGS.info("-" * 70)

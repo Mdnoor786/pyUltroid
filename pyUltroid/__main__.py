@@ -1,7 +1,7 @@
 # Ultroid - UserBot
 # Copyright (C) 2021 TeamUltroid
 #
-# This file is a part of < https://github.com/fnixdev/KannaBot/ >
+# This file is a part of < https://github.com/TeamUltroid/Ultroid/ >
 # PLease read the GNU Affero General Public License in
 # <https://www.github.com/TeamUltroid/Ultroid/blob/main/LICENSE/>.
 
@@ -51,7 +51,7 @@ for x in x:
         os.mkdir(x)
 
 if udB.get("CUSTOM_THUMBNAIL"):
-    urlretrieve(udB.get("CUSTOM_THUMBNAIL"), "resources/extras/ultroid.jpg")
+    urlretrieve(udB.get("CUSTOM_THUMBNAIL"), "resources/extras/kanna.jpg")
 
 if udB.get("GDRIVE_TOKEN"):
     with open("resources/auths/auth_token.txt", "w") as t_file:
@@ -70,7 +70,7 @@ if udB.get("TIMEZONE"):
         time.tzset()
     except BaseException:
         LOGS.info(
-            "Fuso horário incorreto,\nVerifique o fuso horário disponível a partir daqui https://telegra.ph/TimeZone-08-19 \nPortanto, o tempo é UTC padrão"
+            "Incorrect Timezone ,\nCheck Available Timezone From Here https://telegra.ph/Ultroid-06-18-2\nSo Time is Default UTC"
         )
         os.environ["TZ"] = "UTC"
         time.tzset()
@@ -83,7 +83,7 @@ async def autobot():
         return
     if udB.get("BOT_TOKEN"):
         return
-    LOGS.info("Criando um bot pra você no @BotFather, por favor, aguarde")
+    LOGS.info("MAKING A TELEGRAM BOT FOR YOU AT @BotFather , Please Kindly Wait")
     who = await ultroid_bot.get_me()
     name = who.first_name + "'s Assistant Bot"
     if who.username:
@@ -99,9 +99,9 @@ async def autobot():
     await ultroid_bot.send_message(bf, "/newbot")
     await asyncio.sleep(1)
     isdone = (await ultroid_bot.get_messages(bf, limit=1))[0].text
-    if isdone.startswith("Isso eu não posso fazer."):
+    if isdone.startswith("That I cannot do."):
         LOGS.info(
-            "Por favor, crie um bot no @BotFather e adicione seu token em BOT_TOKEN, como um env var e reinicie-me."
+            "Please make a Bot from @BotFather and add it's token in BOT_TOKEN, as an env var and restart me."
         )
         exit(1)
     await ultroid_bot.send_message(bf, name)
@@ -113,7 +113,7 @@ async def autobot():
         isdone = (await ultroid_bot.get_messages(bf, limit=1))[0].text
         if not isdone.startswith("Good."):
             LOGS.info(
-                "Por favor, faça um bot no @BotFather e adicione seu token em BOT_TOKEN, como um env var e reinicie-me."
+                "Please make a Bot from @BotFather and add it's token in BOT_TOKEN, as an env var and restart me."
             )
             exit(1)
     await ultroid_bot.send_message(bf, username)
@@ -134,10 +134,10 @@ async def autobot():
             await ultroid_bot.send_message(bf, f"@{username}")
             await asyncio.sleep(1)
             await ultroid_bot.send_message(bf, "Search")
-            LOGS.info(f"Seu bot foi criado com sucesso! @{username}")
+            LOGS.info(f"DONE YOUR TELEGRAM BOT IS CREATED SUCCESSFULLY @{username}")
         else:
             LOGS.info(
-                f"Exclua alguns de seus bots do Telegram em @Botfather ou defina Var BOT_TOKEN com token de um bot"
+                f"Please Delete Some Of your Telegram bots at @Botfather or Set Var BOT_TOKEN with token of a bot"
             )
             exit(1)
     elif isdone.startswith("Done!"):
@@ -148,10 +148,10 @@ async def autobot():
         await ultroid_bot.send_message(bf, f"@{username}")
         await asyncio.sleep(1)
         await ultroid_bot.send_message(bf, "Search")
-        LOGS.info(f"Seu bot foi criado com sucesso! @{username}")
+        LOGS.info(f"DONE YOUR TELEGRAM BOT IS CREATED SUCCESSFULLY @{username}")
     else:
         LOGS.info(
-            f"Exclua alguns de seus bots do Telegram em @Botfather ou defina Var BOT_TOKEN com token de um bot"
+            f"Please Delete Some Of your Telegram bots at @Botfather or Set Var BOT_TOKEN with token of a bot"
         )
         exit(1)
 
@@ -183,19 +183,19 @@ async def autopilot():
     try:
         r = await ultroid_bot(
             CreateChannelRequest(
-                title="KannaBot Logs",
-                about="Grupo de logs do seu KannaBot\n\n Evite alterar configurações para não bugar\n Duvidas? > @fnixdev <",
+                title="My Ultroid Logs",
+                about="My Ultroid Log Group\n\n Join @TeamUltroid",
                 megagroup=True,
             ),
         )
     except ChannelsTooMuchError:
         LOGS.info(
-            "Você está em muitos canais e grupos, saia de alguns e reinicie o bot"
+            "You Are On Too Many Channels & Groups , Leave some And Restart The Bot"
         )
         exit(1)
     except BaseException:
         LOGS.info(
-            "Algo deu errado, crie um grupo e defina seu id na configuração var LOG_CHANNEL."
+            "Something Went Wrong , Create A Group and set its id on config var LOG_CHANNEL."
         )
         exit(1)
     chat_id = r.chats[0].id
@@ -231,29 +231,29 @@ async def bot_info():
     return asst.me
 
 
-LOGS.info("Inicializando...")
+LOGS.info("Initialising...")
 
 
 # log in
 BOT_TOKEN = udB.get("BOT_TOKEN")
-LOGS.info("iniciando KannaBot...")
+LOGS.info("Starting Ultroid...")
 try:
     asst.start(bot_token=BOT_TOKEN)
     ultroid_bot.start()
     ultroid_bot.loop.run_until_complete(istart())
     ultroid_bot.loop.run_until_complete(bot_info())
-    LOGS.info("Inicialização completa")
-    LOGS.info("Assistente - Iniciado")
+    LOGS.info("Done, startup completed")
+    LOGS.info("Assistant - Started")
 except (AuthKeyDuplicatedError, PhoneNumberInvalidError, EOFError):
-    LOGS.info("A Session String expirou. Por favor, crie uma nova! Desligando KannaBot...")
+    LOGS.info("Session String expired. Please create a new one! Ultroid is stopping...")
     exit(1)
 except ApiIdInvalidError:
-    LOGS.info("Sua combinação API_ID/API_HASH é inválida. Verifique novamente.")
+    LOGS.info("Your API ID/API HASH combination is invalid. Kindly recheck.")
     exit(1)
 except AccessTokenExpiredError:
     udB.delete("BOT_TOKEN")
     LOGS.info(
-        "BOT_TOKEN expirou, então encerrei o processo, reinicie novamente para criar um novo bot. Ou defina BOT_TOKEN env em Vars"
+        "BOT_TOKEN expired , So Quitted The Process, Restart Again To create A new Bot. Or Set BOT_TOKEN env In Vars"
     )
     exit(1)
 except BaseException:
@@ -299,12 +299,12 @@ if Plug_channel:
                 if "(" not in files:
                     try:
                         load_addons(plugin.replace(".py", ""))
-                        LOGS.info(f"KannaBot - PLUGIN_CHANNEL - Instalado - {plugin}")
+                        LOGS.info(f"Ultroid - PLUGIN_CHANNEL - Installed - {plugin}")
                     except Exception as e:
-                        LOGS.info(f"KannaBot - PLUGIN_CHANNEL - ERROR - {plugin}")
+                        LOGS.info(f"Ultroid - PLUGIN_CHANNEL - ERROR - {plugin}")
                         LOGS.info(str(e))
                 else:
-                    LOGS.info(f"Plugin {plugin} está pré-instalado")
+                    LOGS.info(f"Plugin {plugin} is Pre Installed")
                     os.remove(files)
         except Exception as e:
             LOGS.info(str(e))
@@ -368,14 +368,14 @@ async def customize():
 # some stuffs
 async def ready():
     chat_id = int(udB.get("LOG_CHANNEL"))
-    MSG = f"**KannaBot iniciado com sucesso!**\n\n◇─◇──◇───◇───◇──◇─◇\n👤 **Usuario**: [{ultroid_bot.me.first_name}](tg://user?id={ultroid_bot.me.id})\n👾 **Assistante**: @{asst.me.username}\n⚙️ **Suporte**: @fnixdev\n◇─◇──◇───◇───◇──◇─◇"
-    BTTS = [Button.inline("Ajuda", "open")]
+    MSG = f"**Ultroid has been deployed!**\n➖➖➖➖➖➖➖➖➖\n**UserMode**: [{ultroid_bot.me.first_name}](tg://user?id={ultroid_bot.me.id})\n**Assistant**: @{asst.me.username}\n➖➖➖➖➖➖➖➖➖\n**Support**: @TeamUltroid\n➖➖➖➖➖➖➖➖➖"
+    BTTS = [Button.inline("Help", "open")]
     updava = await updater()
     try:
         if updava:
             BTTS = [
-                [Button.inline("Atualização disponivel", "updtavail")],
-                [Button.inline("Ajuda", "open")],
+                [Button.inline("Update Available", "updtavail")],
+                [Button.inline("Help", "open")],
             ]
         await asst.send_message(chat_id, MSG, buttons=BTTS)
     except BaseException:
@@ -385,7 +385,7 @@ async def ready():
             LOGS.info(ef)
     try:
         # To Let Them know About New Updates and Changes
-        await ultroid_bot(JoinChannelRequest("@kannabotup"))
+        await ultroid_bot(JoinChannelRequest("@TheUltroid"))
     except BaseException:
         pass
 

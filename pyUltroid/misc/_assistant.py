@@ -1,7 +1,7 @@
 # Ultroid - UserBot
 # Copyright (C) 2021 TeamUltroid
 #
-# This file is a part of < https://github.com/fnixdev/KannaBot/ >
+# This file is a part of < https://github.com/TeamUltroid/Ultroid/ >
 # PLease read the GNU Affero General Public License in
 # <https://www.github.com/TeamUltroid/Ultroid/blob/main/LICENSE/>.
 
@@ -23,11 +23,11 @@ from . import owner_and_sudos
 ULTROID_PIC = "https://telegra.ph/file/b46a1c21b0a0c2c99943b.jpg"
 
 MSG = f"""
-**Kanna - UserBot**
-◇─◇──◇───◇───◇──◇─◇
-**Dono**: [{get_display_name(ultroid_bot.me)}](tg://user?id={ultroid_bot.uid})
-**Suporte**: @fnixdev
-◇─◇──◇───◇───◇──◇─◇
+**KannaBot - UserBot**
+➖➖➖➖➖➖➖➖➖➖
+**Owner**: [{get_display_name(ultroid_bot.me)}](tg://user?id={ultroid_bot.uid})
+**Support**: @fnixdev
+➖➖➖➖➖➖➖➖➖➖
 """
 
 # decorator for assistant
@@ -46,26 +46,26 @@ def inline_owner():
                 try:
                     builder = event.builder
                     sur = builder.article(
-                        title="Kanna Userbot",
-                        url="https://t.me/kannabotup",
+                        title="Ultroid Userbot",
+                        url="https://t.me/fnixdev",
                         description="(c) fnixdev",
                         text=MSG,
                         thumb=InputWebDocument(ULTROID_PIC, 0, "image/jpeg", []),
                         buttons=[
                             [
                                 Button.url(
-                                    "Repositorio",
+                                    "Repository",
                                     url="https://github.com/fnixdev/KannaBot",
                                 ),
                                 Button.url(
-                                    "Suporte", url="https://t.me/fnixdev"
+                                    "Support", url="https://t.me/fnixdev"
                                 ),
                             ]
                         ],
                     )
                     await event.answer(
                         [sur],
-                        switch_pm=f"🤖: Assistente de {OWNER_NAME}",
+                        switch_pm=f"🤖: Assistant of {OWNER_NAME}",
                         switch_pm_param="start",
                     )
                 except BaseException:
