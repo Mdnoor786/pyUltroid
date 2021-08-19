@@ -1541,7 +1541,7 @@ async def heroku_logs(event):
     await event.client.send_file(
         event.chat_id,
         file="kannabot-heroku.log",
-        thumb="resources/extras/ultroid.jpg",
+        thumb="resources/extras/kanna.jpg",
         caption=f"**KannaBot Heroku Logs.**",
     )
     os.remove("kannabot-heroku.log")
@@ -1552,7 +1552,7 @@ async def def_logs(ult):
     await ult.client.send_file(
         ult.chat_id,
         file="kannabot.log",
-        thumb="resources/extras/ultroid.jpg",
+        thumb="resources/extras/kanna.jpg",
         caption=f"**KannaBot Logs.**",
     )
 
