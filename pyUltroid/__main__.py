@@ -337,7 +337,7 @@ async def customize():
             await ultroid_bot.send_message("botfather", UL)
             await asyncio.sleep(1)
             await ultroid_bot.send_file(
-                "botfather", "resources/extras/ultroid_assistant.jpg"
+                "botfather", "resources/extras/kanna_assistente.jpg"
             )
             await asyncio.sleep(2)
             await ultroid_bot.send_message("botfather", "/setabouttext")
