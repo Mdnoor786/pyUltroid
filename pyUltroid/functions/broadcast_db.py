@@ -13,27 +13,17 @@ def str_to_list(text):  # Returns List
 
 
 def list_to_str(list):  # Returns String
-    str = ""
-    for x in list:
-        str += f"{x} "
+    str = "".join(f"{x} " for x in list)
     return str.strip()
 
 
 def are_all_nums(list):  # Takes List , Returns Boolean
-    flag = True
-    for item in list:
-        if not item.isdigit():
-            flag = False
-            break
-    return flag
+    return all(item.isdigit() for item in list)
 
 
 def get_channels():  # Returns List
     channels = udB.get("BROADCAST")
-    if channels is None or channels == "":
-        return [""]
-    else:
-        return str_to_list(channels)
+    return [""] if channels is None or channels == "" else str_to_list(channels)
 
 
 def get_no_channels():  # Returns List
@@ -47,10 +37,7 @@ def get_no_channels():  # Returns List
 
 def is_channel_added(id):
     channels = get_channels()
-    if str(id) in channels:
-        return True
-    else:
-        return False
+    return str(id) in channels
 
 
 def add_channel(id):  # Take int or str with numbers only , Returns Boolean

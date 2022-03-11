@@ -13,18 +13,13 @@ def str_to_list(text):
 
 
 def list_to_str(list):
-    str = ""
-    for x in list:
-        str += f"{x} "
+    str = "".join(f"{x} " for x in list)
     return str.strip()
 
 
 def gbanned_user():
     gbun = udB.get("GBAN")
-    if gbun is None or gbun == "":
-        return [""]
-    else:
-        return str_to_list(gbun)
+    return [""] if gbun is None or gbun == "" else str_to_list(gbun)
 
 
 def is_gbanned(id):
@@ -32,10 +27,7 @@ def is_gbanned(id):
     if not id.isdigit():
         return False
     gbun = gbanned_user()
-    if str(id) in gbun:
-        return True
-    else:
-        return False
+    return id in gbun
 
 
 def gban(id):
@@ -78,10 +70,7 @@ def add_gban_reason(uid, reason):
 
 def gmuted_user():
     gmute = udB.get("GMUTE")
-    if gmute is None or gmute == "":
-        return [""]
-    else:
-        return str_to_list(gmute)
+    return [""] if gmute is None or gmute == "" else str_to_list(gmute)
 
 
 def is_gmuted(id):
@@ -89,10 +78,7 @@ def is_gmuted(id):
     if not id.isdigit():
         return False
     gmute = gmuted_user()
-    if str(id) in gmute:
-        return True
-    else:
-        return False
+    return id in gmute
 
 
 def gmute(id):

@@ -56,24 +56,13 @@ async def download_yt(xx, event, link, ytd):
         return
     res = await uploader(kk, kk, st, xx, "Enviando...")
     metadata = extractMetadata(createParser(res.name))
-    wi = 512
-    hi = 512
-    duration = 0
-    if metadata.has("width"):
-        wi = metadata.get("width")
-    if metadata.has("height"):
-        hi = metadata.get("height")
-    if metadata.has("duration"):
-        duration = metadata.get("duration").seconds
+    wi = metadata.get("width") if metadata.has("width") else 512
+    hi = metadata.get("height") if metadata.has("height") else 512
+    duration = metadata.get("duration").seconds if metadata.has("duration") else 0
     try:
         author = info["artist"]
     except KeyError:
         author = info["uploader"]
-    except KeyError:
-        if udB.get("artist"):
-            author = udB.get("artist")
-        else:
-            author = ultroid_bot.first_name
     if kk.endswith(".mkv"):
         im = Image.open(thumb)
         ok = im.resize((int(wi), int(hi)))

@@ -28,7 +28,7 @@ def plugin_loader(addons=None, pmbot=None, manager=None, vcbot=None):
                 LOGS.info(f"Ultroid - Official -  Installed - {plugin_name}")
         except Exception as exc:
             LOGS.info(f"Ultroid - Official - ERROR - {plugin_name}")
-            LOGS.info(str(type(exc)) + ": " + str(exc))
+            LOGS.info(f'{str(type(exc))}: {str(exc)}')
     LOGS.info("-" * 70)
 
     # for assistant
@@ -40,7 +40,7 @@ def plugin_loader(addons=None, pmbot=None, manager=None, vcbot=None):
                 LOGS.info(f"Ultroid - Assistant -  Installed - {plugin_name}")
         except Exception as exc:
             LOGS.info(f"Ultroid - Assistant - ERROR - {plugin_name}")
-            LOGS.info(str(type(exc)) + ": " + str(exc))
+            LOGS.info(f'{str(type(exc))}: {str(exc)}')
     LOGS.info("-" * 70)
 
     # for addons
@@ -63,12 +63,8 @@ def plugin_loader(addons=None, pmbot=None, manager=None, vcbot=None):
                     LOGS.info(f"Ultroid - Addons -  Installed - {plugin_name}")
             except Exception as exc:
                 LOGS.info(f"Ultroid - Addons - ERROR - {plugin_name}")
-                LOGS.info(str(type(exc)) + ": " + str(exc))
+                LOGS.info(f'{str(type(exc))}: {str(exc)}')
         LOGS.info("-" * 70)
-    else:
-        pass
-        # os.system("cp plugins/__init__.py addons/")
-
     # group manager
     if manager == "True":
         files = sorted(os.listdir("assistant/manager"))
@@ -84,7 +80,7 @@ def plugin_loader(addons=None, pmbot=None, manager=None, vcbot=None):
         for plugin_name in files:
             if plugin_name.endswith(".py"):
                 load_pmbot(plugin_name[:-3])
-        LOGS.info(f"Ultroid - PM Bot Message Forwards - Enabled.")
+        LOGS.info("Ultroid - PM Bot Message Forwards - Enabled.")
         LOGS.info("-" * 70)
 
     # vc bot

@@ -13,37 +13,24 @@ def str_to_list(text):  # Returns List
 
 
 def list_to_str(list):  # Returns String
-    str = ""
-    for x in list:
-        str += f"{x} "
+    str = "".join(f"{x} " for x in list)
     return str.strip()
 
 
 def are_all_nums(list):  # Takes List , Returns Boolean
-    flag = True
-    for item in list:
-        if not item.isdigit():
-            flag = False
-            break
-    return flag
+    return all(item.isdigit() for item in list)
 
 
 def get_vcsudos():  # Returns List
     sudos = udB.get("VC_SUDOS")
-    if sudos is None or sudos == "":
-        return [""]
-    else:
-        return str_to_list(sudos)
+    return [""] if sudos is None or sudos == "" else str_to_list(sudos)
 
 
 def is_vcsudo(id):  # Take int or str with numbers only , Returns Boolean
     if not str(id).isdigit():
         return False
     sudos = get_vcsudos()
-    if str(id) in sudos:
-        return True
-    else:
-        return False
+    return str(id) in sudos
 
 
 def add_vcsudo(id):  # Take int or str with numbers only , Returns Boolean

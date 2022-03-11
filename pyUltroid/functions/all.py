@@ -132,9 +132,7 @@ def get_data(types, data):
                 if m["acodec"] == "none":
                     id = str(m["format_id"]) + "+" + str(audio[-1].split()[0])
                     j = f"{id} {note} {humanbytes(size+a_size)}"
-                    video.append(j)
-                else:
-                    video.append(j)
+                video.append(j)
     except BaseException:
         pass
     if types == "audio":
@@ -174,9 +172,7 @@ async def check_if_admin(message):
         )
     )
     p = result.participant
-    return isinstance(p, ChannelParticipantCreator) or (
-        isinstance(p, ChannelParticipantAdmin)
-    )
+    return isinstance(p, (ChannelParticipantCreator, ChannelParticipantAdmin))
 
 
 # ---------------Updater---------------
@@ -243,11 +239,7 @@ async def updater():
     ups_rem = repo.remote("upstream")
     ups_rem.fetch(ac_br)
     changelog, tl_chnglog = await gen_chlog(repo, f"HEAD..upstream/{ac_br}")
-    if changelog:
-        msg = True
-    else:
-        msg = False
-    return msg
+    return bool(changelog)
 
 
 # ----------------Fast Upload/Download----------------
@@ -336,10 +328,7 @@ def find_font_size(text, font, image, target_width_ratio):
 
 def make_logo(imgpath, text, funt, **args):
     fill = args.get("fill")
-    if args.get("width_ratio"):
-        width_ratio = args.get("width_ratio")
-    else:
-        width_ratio = width_ratio
+    width_ratio = args.get("width_ratio") or width_ratio
     stroke_width = int(args.get("stroke_width"))
     stroke_fill = args.get("stroke_fill")
 
@@ -499,28 +488,26 @@ def lucks(luck):
 
 
 async def ban_time(event, time_str):
-    if any(time_str.endswith(unit) for unit in ("s", "m", "h", "d")):
-        unit = time_str[-1]
-        time_int = time_str[:-1]
-        if not time_int.isdigit():
-            return await event.edit("Quantidade de tempo inválida especificada.")
-        if unit == "s":
-            bantime = int(time.time() + int(time_int))
-        elif unit == "m":
-            bantime = int(time.time() + int(time_int) * 60)
-        elif unit == "h":
-            bantime = int(time.time() + int(time_int) * 60 * 60)
-        elif unit == "d":
-            bantime = int(time.time() + int(time_int) * 24 * 60 * 60)
-        else:
-            return ""
-        return bantime
-    else:
+    if not any(time_str.endswith(unit) for unit in ("s", "m", "h", "d")):
         return await event.edit(
-            "Tipo de hora inválido especificado. Esperada s, m,h, ou d, got: {}".format(
-                time_int[-1]
-            )
+            f"Tipo de hora inválido especificado. Esperada s, m,h, ou d, got: {time_int[-1]}"
         )
+
+    unit = time_str[-1]
+    time_int = time_str[:-1]
+    if not time_int.isdigit():
+        return await event.edit("Quantidade de tempo inválida especificada.")
+    if unit == "s":
+        bantime = int(time.time() + int(time_int))
+    elif unit == "m":
+        bantime = int(time.time() + int(time_int) * 60)
+    elif unit == "h":
+        bantime = int(time.time() + int(time_int) * 60 * 60)
+    elif unit == "d":
+        bantime = int(time.time() + int(time_int) * 24 * 60 * 60)
+    else:
+        return ""
+    return bantime
 
 
 # gdrive
@@ -532,7 +519,7 @@ def list_files(http):
     files = {}
     for m in x["items"]:
         try:
-            files.update({f"{m['title']}": f"{m['webContentLink']}"})
+            files[f"{m['title']}"] = f"{m['webContentLink']}"
         except KeyError:
             pass
     lists = f"**Total de arquivos encontrados no Gdrive:** `{len(files.keys())}`\n\n"
@@ -559,18 +546,16 @@ async def gsearch(http, query, filename):
         for file in response.get("items", []):
             if file.get("mimeType") == "application/vnd.google-apps.folder":
                 msg += (
-                    "[{}](https://drive.google.com/drive/folders/{}) (folder)".format(
-                        file.get("title"), file.get("id")
-                    )
+                    f'[{file.get("title")}](https://drive.google.com/drive/folders/{file.get("id")}) (folder)'
                     + "\n"
                 )
+
             else:
                 msg += (
-                    "[{}](https://drive.google.com/uc?id={}&export=download)".format(
-                        file.get("title"), file.get("id")
-                    )
+                    f'[{file.get("title")}](https://drive.google.com/uc?id={file.get("id")}&export=download)'
                     + "\n"
                 )
+
         page_token = response.get("nextPageToken", None)
         if page_token is None:
             break
@@ -618,7 +603,7 @@ async def DoTeskWithDir(http, input_directory, event, parent_id):
 
 def file_ops(file_path):
     mime_type = guess_type(file_path)[0]
-    mime_type = mime_type if mime_type else "text/plain"
+    mime_type = mime_type or "text/plain"
     file_name = file_path.split("/")[-1]
     return file_name, mime_type
 
@@ -686,18 +671,25 @@ async def upload_file(http, file_path, file_name, mime_type, event, parent_id):
             speed = round(uploaded / diff, 2)
             eta = round((t_size - uploaded) / speed)
             progress_str = "`{0}{1} {2}%`".format(
-                "".join(["●" for i in range(math.floor(percentage / 5))]),
-                "".join(["" for i in range(20 - math.floor(percentage / 5))]),
+                "".join(["●" for _ in range(math.floor(percentage / 5))]),
+                "".join(["" for _ in range(20 - math.floor(percentage / 5))]),
                 round(percentage, 2),
             )
+
             current_message = (
-                f"`✦ Upando no G-Drive`\n\n"
-                + f"`✦ Arquivo:` `{file_name}`\n\n"
-                + f"{progress_str}\n\n"
-                + f"`✦ Upado:` `{humanbytes(uploaded)} of {humanbytes(t_size)}`\n"
-                + f"`✦ Velocidade:` `{humanbytes(speed)}`\n" 
-                + f"`✦ ETA:` `{time_formatter(eta*1000)}`"
-            )
+                (
+                    (
+                        (
+                            "`✦ Upando no G-Drive`\\n\\n"
+                            + f"`✦ Arquivo:` `{file_name}`\n\n"
+                        )
+                        + f"{progress_str}\n\n"
+                    )
+                    + f"`✦ Upado:` `{humanbytes(uploaded)} of {humanbytes(t_size)}`\n"
+                )
+                + f"`✦ Velocidade:` `{humanbytes(speed)}`\n"
+            ) + f"`✦ ETA:` `{time_formatter(eta*1000)}`"
+
             if display_message != current_message:
                 try:
                     await event.edit(current_message)
@@ -707,8 +699,7 @@ async def upload_file(http, file_path, file_name, mime_type, event, parent_id):
     file_id = response.get("id")
     drive_service.permissions().insert(fileId=file_id, body=permissions).execute()
     file = drive_service.files().get(fileId=file_id).execute()
-    download_url = file.get("webContentLink")
-    return download_url
+    return file.get("webContentLink")
 
 
 # Gdrive End
@@ -787,22 +778,20 @@ async def dler(ev, url):
 def time_formatter(milliseconds: int) -> str:
     """Inputs time in milliseconds, to get beautified time,
     as string"""
-    seconds, milliseconds = divmod(int(milliseconds), 1000)
+    seconds, milliseconds = divmod(milliseconds, 1000)
     minutes, seconds = divmod(seconds, 60)
     hours, minutes = divmod(minutes, 60)
     days, hours = divmod(hours, 24)
     weeks, days = divmod(days, 7)
     tmp = (
-        ((str(weeks) + "w:") if weeks else "")
-        + ((str(days) + "d:") if days else "")
-        + ((str(hours) + "h:") if hours else "")
-        + ((str(minutes) + "m:") if minutes else "")
-        + ((str(seconds) + "s:") if seconds else "")
+        (f'{str(weeks)}w:' if weeks else "")
+        + (f'{str(days)}d:' if days else "")
+        + (f'{str(hours)}h:' if hours else "")
+        + (f'{str(minutes)}m:' if minutes else "")
+        + (f'{str(seconds)}s:' if seconds else "")
     )
-    if tmp.endswith(":"):
-        return tmp[:-1]
-    else:
-        return tmp
+
+    return tmp[:-1] if tmp.endswith(":") else tmp
 
 
 def humanbytes(size):
@@ -823,10 +812,11 @@ async def progress(current, total, event, start, type_of_ps, file_name=None):
         speed = current / diff
         time_to_completion = round((total - current) / speed) * 1000
         progress_str = "`[{0}{1}] {2}%`\n\n".format(
-            "".join(["●" for i in range(math.floor(percentage / 5))]),
-            "".join(["" for i in range(20 - math.floor(percentage / 5))]),
+            "".join(["●" for _ in range(math.floor(percentage / 5))]),
+            "".join(["" for _ in range(20 - math.floor(percentage / 5))]),
             round(percentage, 2),
         )
+
         tmp = (
             progress_str
             + "`{0} of {1}`\n\n`✦ Speed: {2}/s`\n\n`✦ ETA: {3}`\n\n".format(
@@ -909,20 +899,18 @@ def ReTrieveFile(input_file_name):
     RMBG_API = udB.get("RMBG_API")
     headers = {"X-API-Key": RMBG_API}
     files = {"image_file": (input_file_name, open(input_file_name, "rb"))}
-    r = requests.post(
+    return requests.post(
         "https://api.remove.bg/v1.0/removebg",
         headers=headers,
         files=files,
         allow_redirects=True,
         stream=True,
     )
-    return r
 
 
 async def resize_photo(photo):
     """Redimensionar a foto fornecida para 512x512"""
     image = Image.open(photo)
-    maxsize = (512, 512)
     if (image.width and image.height) < 512:
         size1 = image.width
         size2 = image.height
@@ -939,6 +927,7 @@ async def resize_photo(photo):
         sizenew = (size1new, size2new)
         image = image.resize(sizenew)
     else:
+        maxsize = (512, 512)
         image.thumbnail(maxsize)
     return image
 
@@ -953,12 +942,11 @@ async def get_full_user(event):
                     or previous_message.forward.channel_id
                 )
             )
-            return replied_user, None
         else:
             replied_user = await event.client(
                 GetFullUserRequest(previous_message.sender_id)
             )
-            return replied_user, None
+        return replied_user, None
     else:
         input_str = None
         try:
@@ -998,10 +986,7 @@ async def get_full_user(event):
 
 
 def make_mention(user):
-    if user.username:
-        return f"@{user.username}"
-    else:
-        return inline_mention(user)
+    return f"@{user.username}" if user.username else inline_mention(user)
 
 
 def inline_mention(user):
@@ -1012,8 +997,7 @@ def inline_mention(user):
 def user_full_name(user):
     names = [user.first_name, user.last_name]
     names = [i for i in list(names) if i]
-    full_name = " ".join(names)
-    return full_name
+    return " ".join(names)
 
 
 async def get_chatinfo(event):
