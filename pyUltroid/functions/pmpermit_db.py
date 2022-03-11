@@ -13,28 +13,20 @@ def str_to_list(text):  # Returns List
 
 
 def list_to_str(list):  # Returns String
-    str = ""
-    for x in list:
-        str += f"{x} "
+    str = "".join(f"{x} " for x in list)
     return str.strip()
 
 
 def get_approved():  # Returns List
     pmperm = udB.get("PMPERMIT")
-    if pmperm is None or pmperm == "":
-        return [""]
-    else:
-        return str_to_list(pmperm)
+    return [""] if pmperm is None or pmperm == "" else str_to_list(pmperm)
 
 
 def is_approved(id):  # Take int or str with numbers only , Returns Boolean
     if not str(id).isdigit():
         return False
     pmperm = get_approved()
-    if str(id) in pmperm:
-        return True
-    else:
-        return False
+    return str(id) in pmperm
 
 
 def approve_user(id):  # Take int or str with numbers only , Returns Boolean

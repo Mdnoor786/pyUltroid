@@ -23,10 +23,7 @@ def are_all_nums(list):  # Takes List , Returns Boolean
 
 def get_gblacklists():  # Returns List
     gblack = udB.get("GBLACKLISTS")
-    if gblack is None or gblack == "":
-        return [""]
-    else:
-        return str_to_list(gblack)
+    return [""] if gblack is None or gblack == "" else str_to_list(gblack)
 
 
 def is_gblacklisted(id):  # Take int or str with numbers only , Returns Boolean

@@ -87,9 +87,9 @@ async def autobot():
     who = await ultroid_bot.get_me()
     name = who.first_name + "'s Assistant Bot"
     if who.username:
-        username = who.username + "_bot"
+        username = f'{who.username}_bot'
     else:
-        username = "ultroid_" + (str(who.id))[5:] + "_bot"
+        username = f"ultroid_{(str(who.id))[5:]}_bot"
     bf = "Botfather"
     await ultroid_bot(UnblockRequest(bf))
     await ultroid_bot.send_message(bf, "/cancel")
@@ -122,7 +122,7 @@ async def autobot():
     await ultroid_bot.send_read_acknowledge("botfather")
     if isdone.startswith("Sorry,"):
         ran = randint(1, 100)
-        username = "ultroid_" + (str(who.id))[6:] + str(ran) + "_bot"
+        username = f"ultroid_{(str(who.id))[6:]}{str(ran)}_bot"
         await ultroid_bot.send_message(bf, username)
         await asyncio.sleep(1)
         nowdone = (await ultroid_bot.get_messages(bf, limit=1))[0].text
@@ -137,8 +137,9 @@ async def autobot():
             LOGS.info(f"DONE YOUR TELEGRAM BOT IS CREATED SUCCESSFULLY @{username}")
         else:
             LOGS.info(
-                f"Please Delete Some Of your Telegram bots at @Botfather or Set Var BOT_TOKEN with token of a bot"
+                "Please Delete Some Of your Telegram bots at @Botfather or Set Var BOT_TOKEN with token of a bot"
             )
+
             exit(1)
     elif isdone.startswith("Done!"):
         token = isdone.split("`")[1]
@@ -151,8 +152,9 @@ async def autobot():
         LOGS.info(f"DONE YOUR TELEGRAM BOT IS CREATED SUCCESSFULLY @{username}")
     else:
         LOGS.info(
-            f"Please Delete Some Of your Telegram bots at @Botfather or Set Var BOT_TOKEN with token of a bot"
+            "Please Delete Some Of your Telegram bots at @Botfather or Set Var BOT_TOKEN with token of a bot"
         )
+
         exit(1)
 
 
@@ -200,7 +202,7 @@ async def autopilot():
         exit(1)
     chat_id = r.chats[0].id
     if not str(chat_id).startswith("-100"):
-        udB.set("LOG_CHANNEL", "-100" + str(chat_id))
+        udB.set("LOG_CHANNEL", f"-100{str(chat_id)}")
     else:
         udB.set("LOG_CHANNEL", str(chat_id))
     rights = ChatAdminRights(
@@ -257,7 +259,7 @@ except AccessTokenExpiredError:
     )
     exit(1)
 except BaseException:
-    LOGS.info("Error: " + str(traceback.print_exc()))
+    LOGS.info(f"Error: {str(traceback.print_exc())}")
     exit(1)
 
 
